@@ -28,8 +28,8 @@ test("Check if the form is rendered", () =>{
     expect(messageInput).toBeInTheDocument();
 })
 
-test("makes sure that the inputs can be filled in and submitted", async() =>{
-    await act (async() => {const {getByLabelText, getByTestId} = render(<ContactForm/>);
+test("makes sure that the inputs can be filled in and submitted", () =>{
+    async() => {const {getByLabelText, getByTestId} = render(<ContactForm/>);
 
     const fNameInput = getByLabelText(/First/i);
     const lNameInput = getByLabelText(/Last/i);
@@ -47,7 +47,7 @@ test("makes sure that the inputs can be filled in and submitted", async() =>{
     expect(messageInput.value).toBe('I have no idea what to write in here');
 
     fireEvent.click(getByTestId(/submit/));
-    });
+    };
 });
 
 
