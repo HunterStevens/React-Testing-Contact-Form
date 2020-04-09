@@ -1,6 +1,7 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import ContactForm from './ContactForm';
+import { act } from 'react-dom/test-utils';
 
 test("Check if the form is rendered", () =>{
     const {getByLabelText, getByPlaceholderText} = render(<ContactForm/>);
@@ -27,8 +28,8 @@ test("Check if the form is rendered", () =>{
     expect(messageInput).toBeInTheDocument();
 })
 
-test("makes sure that the inputs can be filled in and submitted", () =>{
-    const {getByLabelText, getByText} = render(<ContactForm/>);
+test("makes sure that the inputs can be filled in and submitted", async() =>{
+    await act (async() => {const {getByLabelText, getByTestId} = render(<ContactForm/>);
 
     const fNameInput = getByLabelText(/First/i);
     const lNameInput = getByLabelText(/Last/i);
@@ -45,7 +46,8 @@ test("makes sure that the inputs can be filled in and submitted", () =>{
     expect(emailInput.value).toBe('tester@email.com');
     expect(messageInput.value).toBe('I have no idea what to write in here');
 
-    fireEvent.click(getByText(/submit/i));
+    fireEvent.click(getByTestId(/submit/));
+    });
 });
 
 
