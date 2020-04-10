@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, getByTestId } from "@testing-library/react";
 import ContactForm from './ContactForm';
 import { act } from 'react-dom/test-utils';
 
@@ -28,6 +28,20 @@ test("Check if the form is rendered", () =>{
     expect(messageInput).toBeInTheDocument();
 })
 
+test("Make sure the error message appears when ", ()=>{
+    async() => {const {getByTestId} = render(<ContactForm/>);
+        fireEvent.click(getByTestId(/submit/i));
+
+        const firstErr = getByTestId(/firstNameErr/i);
+        const lastErr = getByTestId(/lastNameErr/i);
+        const emailErr = getByTestId(/emailErr/i);
+        
+        expect(firstErr).toBeVisible();
+        expect(lastErr).toBeVisible();
+        expect(emailErr).toBeVisible();
+    }
+});
+
 test("makes sure that the inputs can be filled in and submitted", () =>{
     async() => {const {getByLabelText, getByTestId} = render(<ContactForm/>);
 
@@ -46,9 +60,13 @@ test("makes sure that the inputs can be filled in and submitted", () =>{
     expect(emailInput.value).toBe('tester@email.com');
     expect(messageInput.value).toBe('I have no idea what to write in here');
 
-    fireEvent.click(getByTestId(/submit/));
+    fireEvent.click(getByTestId(/submit/i));
+
+    const formText = getByTestId("formData");
+    expect(formText).toBeInTheDocument();
     };
 });
+
 
 
 

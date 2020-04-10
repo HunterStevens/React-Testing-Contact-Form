@@ -22,7 +22,7 @@ const ContactForm = () => {
             ref={register({ required: true, maxLength: 3 })}
           />
           {errors.firstName && (
-            <p>Looks like there was an error: {errors.firstName.type}</p>
+            <p data-testid="firstNameErr">Looks like there was an error: {errors.firstName.type}</p>
           )}
         </div>
 
@@ -35,7 +35,7 @@ const ContactForm = () => {
             ref={register({ required: true })}
           />
           {errors.lastName && (
-            <p>Looks like there was an error: {errors.lastName.type}</p>
+            <p data-testid="lastNameErr">Looks like there was an error: {errors.lastName.type}</p>
           )}
         </div>
 
@@ -47,7 +47,7 @@ const ContactForm = () => {
            placeholder="bluebill1049@hotmail.com"
           ref={register({ required: true })} />
           {errors.email && (
-            <p>Looks like there was an error: {errors.email.type}</p>
+            <p data-testid="emailErr">Looks like there was an error: {errors.email.type}</p>
           )}
         </div>
         <div>
@@ -55,7 +55,7 @@ const ContactForm = () => {
           <textarea id="message" name="message" ref={register({ required: false })} />
         </div>
         {data && (
-          <pre style={{ textAlign: "left", color: "white" }}>
+          <pre data-testid="formData" style={{ textAlign: "left", color: "white" }}>
             {JSON.stringify(data, null, 2)}
           </pre>
         )}
